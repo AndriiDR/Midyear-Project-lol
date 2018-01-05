@@ -13,10 +13,10 @@ public class LevelSelect : MonoBehaviour {
 		SceneManager.LoadScene("Level1", LoadSceneMode.Single);
 	}
 	public void LevelTwoOn() {
-		//SceneManager.LoadScene("Level2", LoadSceneMode.Single);
+		SceneManager.LoadScene("Level2", LoadSceneMode.Single);
 	}
 	public void LevelThreeOn() {
-		//SceneManager.LoadScene("Level3", LoadSceneMode.Single);
+		SceneManager.LoadScene("Level3", LoadSceneMode.Single);
 	}
 	public void BackOn() {
 		SceneManager.LoadScene("TitleScreen", LoadSceneMode.Single);
