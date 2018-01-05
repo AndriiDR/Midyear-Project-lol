@@ -1,7 +1,3 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine.UI;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class Menu : MonoBehaviour {
@@ -28,21 +24,11 @@ public class Menu : MonoBehaviour {
 
     public void LoadOn()
     {
-        SceneManager.LoadScene("INSERT NAME HERE", LoadSceneMode.Single);
+        SceneManager.LoadScene("LevelSelect", LoadSceneMode.Single);
     }
 
     public void QuitGame()
     {
         Application.Quit();
     }
-
-
-    void Start () {
-		
-	}
-	
-	
-	void Update () {
-		
-	}
 }
