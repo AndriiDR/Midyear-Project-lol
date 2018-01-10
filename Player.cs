@@ -1,4 +1,4 @@
-﻿uusing System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -49,7 +49,7 @@ public class Player : MonoBehaviour
             //anim.SetBool("Jump", true);
         }
 
-        if (rb.velocity.x != 0f && anim.GetBool("Jump").Equals(false))
+        if (rb.velocity.x != 0f /*&& anim.GetBool("Jump").Equals(false)*/)
         {
             //anim.SetBool("Run", true);
         }
@@ -78,10 +78,21 @@ public class Player : MonoBehaviour
         {
             rb.velocity = new Vector2(-maxSpeed, rb.velocity.y);
         }
+    }
 
-        if (transform.position.y < -80f)
+    private void OnCollisionEnter2D(Collision2D other)
+    {
+        //Trigger death and restart level 
+        if (other.gameObject.CompareTag("Enemy"))
         {
-            Application.LoadLevel(0);
+
         }
+
+        if (other.gameObject.CompareTag("Switch"))
+        {
+
+        }
+
+
     }
 }
