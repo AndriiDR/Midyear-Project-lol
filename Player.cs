@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -9,6 +9,7 @@ public class Player : MonoBehaviour
 
     //public Animator anim;
 
+    public GameManager gm;
 
     private float maxSpeed;
 
@@ -85,14 +86,8 @@ public class Player : MonoBehaviour
         //Trigger death and restart level 
         if (other.gameObject.CompareTag("Enemy"))
         {
-
+            gm.Death();
         }
-
-        if (other.gameObject.CompareTag("Switch"))
-        {
-
-        }
-
 
     }
 }
