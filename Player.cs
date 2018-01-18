@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -12,11 +12,10 @@ public class Player : MonoBehaviour
     public GameManager gm;
 
     private float maxSpeed;
-
     private bool possible;
-    private bool carry;
-
     private GameObject contact;
+	private Animator anim;
+	private bool limitjump = true;
 
 
     // Use this for initialization
@@ -24,8 +23,7 @@ public class Player : MonoBehaviour
     {
         maxSpeed = 5f;
         possible = false;
-        carry = false;
-        //anim = GetComponent<Animator>();
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -35,21 +33,35 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.D) && rb.velocity.y.Equals(0f))
         {
             rb.AddRelativeForce(Vector2.right * 30f);
-            transform.localScale = new Vector3(1f, 1f, 1f);
         }
         if (Input.GetKey(KeyCode.A) && rb.velocity.y.Equals(0f))
         {
             rb.AddRelativeForce(Vector2.left * 30f);
-            transform.localScale = new Vector3(-1f, 1f, 1f);
         }
-        if (Input.GetKeyDown(KeyCode.Space) && rb.velocity.y.Equals(0f))
+        if (Input.GetKeyDown(KeyCode.W) && (rb.velocity.y.Equals(0f)||limitjump==false))
         {
             //anim.SetBool("Jump", true);
-            rb.AddRelativeForce(Vector2.up * 450f);
-			if(Input.GetKeyDown(KeyCode.Space){
-				rb.AddRelativeForce(Vector2.up * 450f);
-			}
+            rb.AddForce(Vector2.up * 450f);
         }
+
+        if (rb.velocity.y.Equals(0f))
+        {
+            //anim.SetBool("Jump", false);
+        }
+        else
+        {
+            //anim.SetBool("Jump", true);
+        }
+
+        if (rb.velocity.x > 0f /*&& anim.GetBool("Jump").Equals(false)*/)
+        {
+            anim.SetBool("Run", true);
+        }
+        if (rb.velocity.x == 0f)
+        {
+            anim.SetBool("Run", false);
+        }
+
 
         //Air physics
         if (Input.GetKey(KeyCode.D) && !(rb.velocity.y.Equals(0f)))
@@ -72,63 +84,56 @@ public class Player : MonoBehaviour
         }
 
         //Actions
-        //Throws
-        if (Input.GetKeyDown(KeyCode.S) && carry == true)
-        {
-            contact.GetComponent<Knuckles>().Thrown();
-            if (transform.localScale.x == 1)
-            {
-                contact.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.right * 1000f);
-            }
-            else
-            {
-                contact.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.left * 1000f);
-            }
-            contact = null;
-            carry = false;
-        }
-        else if (Input.GetKeyDown(KeyCode.S) && Input.GetKey(KeyCode.A) && carry == true)
-        {
-            contact.GetComponent<Knuckles>().Thrown();
-            contact.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.up * 1000f);
-            contact = null;
-            carry = false;
-        }
-
-        //Pick Up
-        if (Input.GetKeyDown(KeyCode.S) && possible == true && contact != null)
+        
+		/*
+		if (Input.GetKey(KeyCode.S) && possible == true && contact == null)
         {
             print("ok");
             contact.GetComponent<Knuckles>().Lifted(this.gameObject);
-            possible = false;
-            carry = true;
         }
-
-
-        
-
+        else if (Input.GetKey(KeyCode.S) && contact != null)
+        {
+            contact.GetComponent<Knuckles>().Thrown();
+            contact = null;
+        }
+		*/
 
 
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy") && carry == false)
+        if (other.gameObject.CompareTag("Enemy"))
         {
             print("Not ok");
             gm.Death();
         }
+		else if(other.gameObject.CompareTag("pigeon")){
+			limitjump = false;
+			other.gameObject.GetComponent<AudioSource>().Play();
+			StartCoroutine(GiveHimASecond(other));
+		}
     }
 
     private void OnTriggerStay2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Safe") && carry == false)
+        if (other.gameObject.CompareTag("Safe"))
         {
+            print("ok");
             possible = true;
             contact = other.transform.parent.gameObject;
         }
-        
+        else
+        {
+            possible = false;
+            contact = null;
+        }
     }
+	
+	IEnumerator GiveHimASecond(Collider2D other){
+		yield return new WaitForSeconds(3);
+		other.gameObject.SetActive(false);
+	}
 
     
 }
