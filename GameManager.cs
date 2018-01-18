@@ -5,9 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-    public GameObject[] red = GameObject.FindGameObjectsWithTag("Red");
-    public GameObject[] blue = GameObject.FindGameObjectsWithTag("Blue");
-    public GameObject[] green = GameObject.FindGameObjectsWithTag("Green");
+    public GameObject[] red = new GameObject[10];
+    public GameObject[] blue = new GameObject[10];
+    public GameObject[] green = new GameObject[10];
     public bool redon;
     public bool blueon;
     public bool greenon;
@@ -15,7 +15,9 @@ public class GameManager : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        
+        red = GameObject.FindGameObjectsWithTag("RedBloc");
+        blue = GameObject.FindGameObjectsWithTag("BlueBloc");
+        green = GameObject.FindGameObjectsWithTag("GreenBloc");
     }
 	
 	// Update is called once per frame
@@ -30,7 +32,7 @@ public class GameManager : MonoBehaviour {
         //Play death sound ROBLOX DEATH SOUND
         //Wait for seconds time of death sound
         //mute all sounds
-        deathm.enabled = true;
+        deathm.GetComponent<Death>();
     }
 
     public void Restart()
