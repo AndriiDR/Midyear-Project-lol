@@ -5,8 +5,8 @@ using UnityEngine.SceneManagement;
 public class Death : MonoBehaviour {
 
     public Canvas DeathCanvas;
-    private Vector3 DSPosition;
-    //public Camera camera;
+    private Scene scene;
+
 
     void Awake()
     {
@@ -14,15 +14,13 @@ public class Death : MonoBehaviour {
     }
 
     private void Start()
-    {
-        DeathCanvas.enabled = true;
-        DSPosition = DeathCanvas.transform.position;
-        GetComponent<Camera>().transform.position = DSPosition;
+    {      
+		scene = SceneManager.GetActiveScene(); //records current scene
     }
 
     public void RetryOn()
     {
-        DeathCanvas.enabled = false; //need to change this
+        SceneManager.LoadScene(scene.name, LoadSceneMode.Single);
     }
 
     public void ReturnOn()
