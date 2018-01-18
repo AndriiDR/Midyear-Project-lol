@@ -33,12 +33,12 @@ public class Block : MonoBehaviour {
     {
         if (swit == false)
         {
-            GetComponent<SpriteRenderer>().sprite = sprites[basev-1];
+            GetComponent<SpriteRenderer>().sprite = sprites[basev+1];
             swit = true;
         }
         else
         {
-            GetComponent<SpriteRenderer>().sprite = sprites[basev + 1];
+            GetComponent<SpriteRenderer>().sprite = sprites[basev - 1];
             swit = false;
         }
     }
