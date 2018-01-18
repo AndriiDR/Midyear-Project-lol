@@ -6,7 +6,7 @@ public class Player : MonoBehaviour
 {
 
     public Rigidbody2D rb;
-
+    public float minY; //You have to be higher than this or you lose
     //public Animator anim;
 
     public GameManager gm;
@@ -29,6 +29,11 @@ public class Player : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+    	if(transform.position.y<minY){
+		gm.Death();
+		this.gameObject.SetActive(false);
+	}
+    	
         //Ground physics
         if (Input.GetKey(KeyCode.D) && rb.velocity.y.Equals(0f))
         {
