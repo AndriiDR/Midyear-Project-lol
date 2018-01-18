@@ -107,6 +107,7 @@ public class Player : MonoBehaviour
         {
             print("Not ok");
             gm.Death();
+	    this.gameObject.SetActive(false);
         }
 		else if(other.gameObject.CompareTag("pigeon")){
 			limitjump = false;
