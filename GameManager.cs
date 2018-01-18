@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -32,7 +32,8 @@ public class GameManager : MonoBehaviour {
         //Play death sound ROBLOX DEATH SOUND
         //Wait for seconds time of death sound
         //mute all sounds
-        deathm.GetComponent<Death>();
+		deathm.gameObject.SetActive(true);
+
     }
 
     public void Restart()
