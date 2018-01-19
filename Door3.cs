@@ -1,16 +1,18 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Door3 : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
+	public Canvas VictoryCanvas;
+
+	void Start () {	}
+	void Update () {}
+
+	void OnTriggerEnter2D(Collider2D other){
+		if(other.gameObject.CompareTag("Player")){
+			VictoryCanvas.enabled = true;
+		}
 	}
 }
