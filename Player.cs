@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -99,13 +99,15 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.S) && carry == true)
         {
             contact.GetComponent<Knuckles>().Thrown();
-            if (transform.localScale.x == 1)
+            if (sr.flipX == false)
             {
-                contact.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.right * 1000f);
+                contact.transform.position = new Vector2(this.transform.position.x + 5.0f, this.transform.position.y + 1.0f);
+                contact.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.right * 100.0f);
             }
             else
             {
-                contact.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.left * 1000f);
+                contact.transform.position = new Vector2(this.transform.position.x - 5.0f, this.transform.position.y + 1.0f);
+                contact.GetComponent<Rigidbody2D>().AddRelativeForce(Vector2.left * 100.0f);
             }
             contact = null;
             carry = false;
@@ -126,15 +128,17 @@ public class Player : MonoBehaviour
             possible = false;
             carry = true;
         }
+
     }
 
     private void OnCollisionEnter2D(Collision2D other)
     {
-        if (other.gameObject.CompareTag("Enemy") && carry == false)
+        if (other.gameObject.CompareTag("Safe")) { }
+        else if (other.gameObject.CompareTag("Enemy") && carry == false)
         {
+            print("Not ok");
             gm.Death();
             this.gameObject.SetActive(false);
-			//print ("not ok");
         }
         else if (other.gameObject.CompareTag("pigeon"))
         {
