@@ -1,11 +1,11 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Spring : MonoBehaviour {
-	private Player player;
+	//public Player player;
 
-	public GameManager gm;
+	//public GameManager gm;
 
 	private GameObject spring;
 	void Start () {
@@ -14,12 +14,13 @@ public class Spring : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		JumpSpring(
+        //JumpSpring(player.GetComponent<Collider2D>());
 	}
 
-	private void JumpSpring(Collider2D other){
-		if (other.gameObject.CompareTag("Player"){
-			player.rb.AddRelativeForce(Vector2.up * 1100f);
+	void OnCollisionEnter2D(Collision2D other){
+		if (other.gameObject.CompareTag("Player")){
+			//print ("pls");
+			other.rigidbody.AddForce(transform.up * 1100f);
 		}
 	}
 }
